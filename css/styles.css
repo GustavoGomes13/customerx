@@ -16,6 +16,8 @@ body {
     background: #4c2882;
     display: flex;
     justify-content: center;
+    position: fixed;
+    overflow-x: hidden;
 }
 
 .side-nav ul {
@@ -31,7 +33,6 @@ body {
     margin: 10px;
     padding: 15px;
     background: #3ED62AF2;
-    
     border-radius: 8px;
     transition: 0.2s;
 }
@@ -43,6 +44,36 @@ body {
 
 .side-nav ul li:hover {
     background: #28aa17f2;
+}
+
+.content {
+    margin-left: 200px;
+}
+
+/* Form */
+.form-register {
+    display: flex;
+    justify-content: center;
+}
+
+.form-register fieldset {
+    padding: 15px;
+    margin-top: 25px;
+    border: 0;
+}
+
+.form-register input {
+    margin: 8px;
+    border-radius: 50px;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+/* buttons */
+.buttons {
+    display: flex;
+    justify-content: center;
 }
 
 .form-register button {
@@ -58,6 +89,7 @@ body {
 
 .form-register button+button {
     background: #d62a38f2;
+    margin-left: 5px;
 }
 
 .form-register button:hover {
@@ -68,6 +100,8 @@ body {
     background: #a71b27f2;
 }
 
+
+/* Tabela de resultados */
 table {
     border: solid 1px black;
 }
