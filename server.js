@@ -34,11 +34,15 @@ app.use('/scripts', express.static('scripts'))
 //app.set('public', path.join(__dirname, 'public'))
 
 //criando rotas para as paginas
-//Clientes
 app.get('/', (req, res) => {
+    res.render('index')
+})
+
+//Clientes
+app.get('/clients', (req, res) => {
     conn.query("SELECT * FROM client", (err, rows) => {
         if(err) throw err
-        res.render('index', {client: rows} )
+        res.render('clients', {client: rows} )
     })
 })
 
@@ -81,7 +85,7 @@ app.get('/delete/:clientId', (req, res) => {
 })
 
 //Contatos
-app.get('/contacts.ejs', (req, res) => {
+app.get('/contacts', (req, res) => {
     conn.query("SELECT * FROM contact", (err, rows) => {
         if(err) throw err
         res.render('contacts', { contact: rows })
@@ -89,7 +93,7 @@ app.get('/contacts.ejs', (req, res) => {
 })
 
 // Insert
-app.post('/contacts.ejs', (req, res) => {
+app.post('/contacts', (req, res) => {
     conn.query("INSERT INTO contact VALUES (?, ?, ?, ?)",
     [ null, req.body.name, req.body.email, req.body.phone ])
 
