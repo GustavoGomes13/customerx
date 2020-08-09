@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>CRUD CustomerX</title>
+</head>
+<body>
+
+    <div class="side-nav">
+        <ul>
+            <li>Clientes</li>
+            <li><a href="/contacts.ejs">Contatos</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="form-register">
+            <form method="POST">
+                <fieldset>
+                    <label for="name">Nome:</label>
+                    <input type="text" name="name" placeholder="Informe o nome do cliente" required>
+                    <label for="email">E-mail:</llabel>
+                    <input type="email" name="email" placeholder="Informe o e-mail" required>
+                    <label for="phone">Telefone:</label>
+                    <input type="number" name="phone" placeholder="Informe o telefone" required>
+
+                    <button type="submit" id="btnSave">Salvar</button>
+                    <button type="reset" id="btnReset">Cancelar</button>
+                </fieldset>
+            </form>
+
+            <div class="clients-list">
+                <table class="clients-table">
+                    <tr>
+                         <th>ID</th>
+                         <th>Nome</th>
+                         <th>Email</th>
+                          <th>Telefone</th>
+                        <th>Ação</th>
+                    </tr>
+
+                    
+                    <% client.forEach(function(clients){ %>
+                        <tr>
+                            <td><%= clients.id %></td>
+                            <td><%= clients.name %></td>
+                            <td><%= clients.email %></td>
+                            <td><%= clients.phone %></td>
+                            <td><%= clients.register_date %></td>
+                            <td>
+                                <a href="edit/<%= clients.id %>">Editar</a>
+                                <a href="delete/<%= clients.id %>">Deletar</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

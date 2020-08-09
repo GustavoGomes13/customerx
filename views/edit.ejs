@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-register">
+        <form action="/update" method="POST">
+            <fieldset>
+                <input type="hidden" value="<%= client.id %>" name="id">
+                <label for="name">Nome:</label>
+                <input type="text" name="name" placeholder="Informe o nome do cliente" value="<%= client.name %>" required>
+                <label for="email">E-mail:</llabel>
+                <input type="text" name="email" placeholder="Informe o e-mail" value="<%= client.email%>" required>
+                <label for="phone">Telefone:</label>
+                <input type="number" name="phone" placeholder="Informe o telefone" value="<%= client.phone %>" required>
+
+                <button type="submit" id="btnSave">Salvar</button>
+                <button type="reset" id="btnReset">Cancelar</button>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

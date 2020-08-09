@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+    <div class="content">
+        <div class="form-register">
+            <form method="POST">
+                <fieldset>
+                    <label for="name">Nome:</label>
+                    <input type="text" name="name" placeholder="Informe o nome do cliente" required>
+                    <label for="email">E-mail:</llabel>
+                    <input type="email" name="email" placeholder="Informe o e-mail" required>
+                    <label for="phone">Telefone:</label>
+                    <input type="number" name="phone" placeholder="Informe o telefone" required>
+
+                    <button type="submit" id="btnSave">Salvar</button>
+                    <button type="reset" id="btnReset">Cancelar</button>
+                </fieldset>
+            </form>
+        </div>
+
+        
+        <div class="clients-list">
+            <table class="clients-table">
+                <tr>
+                     <th>ID</th>
+                     <th>Nome</th>
+                     <th>Email</th>
+                      <th>Telefone</th>
+                    <th>Ação</th>
+                </tr>
+
+                
+                <% contact.forEach(function(contacts){ %>
+                    <tr>
+                        <td><%= contacts.id %></td>
+                        <td><%= contacts.name %></td>
+                        <td><%= contacts.email %></td>
+                        <td><%= contacts.phone %></td>
+                        <td><%= contacts.register_date %></td>
+                        <td>
+                            <a href="edit/<%= contacts.id %>">Editar</a>
+                            <a href="delete/<%= contacts.id %>">Deletar</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
