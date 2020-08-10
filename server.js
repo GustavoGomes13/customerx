@@ -4,7 +4,6 @@ const ejs = require('ejs')
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 const app = express()
-const getDate = require('./db/clients')
 
 //criando conexão com o banco de dados
 const conn = mysql.createConnection({
@@ -47,12 +46,15 @@ app.get('/clients', (req, res) => {
 })
 
 // Insert
-app.post('/', (req, res) => {
+app.post('/clients', (req, res) => {
+
+    let date = new Date().toISOString().slice(0, 10)
 
     conn.query("INSERT INTO client VALUES (?, ?, ?, ?, ?)",
-    [ null, req.body.name, req.body.email, req.body.phone, "getDate" ])
+    [ null, req.body.name, req.body.email, req.body.phone, date ])
+    console.log(getDate)
 
-    res.redirect('/')
+    res.redirect('/clients')
 })
 
 // Update
@@ -71,22 +73,26 @@ app.post('/update', (req, res) => {
     WHERE id="${req.body.id}";
     `), (err, results) => {
         if(err) throw err
-        res.redirect('/')
+        res.redirect('clients')
     }
+    // Não redirecionando !!!VERIFICAR
 })
 
 // Delete
 app.get('/delete/:clientId', (req, res) => {
     const id = req.params.clientId
-    conn.query(`DELETE FROM client WHERE ID = ${id};`, (err, result) => {
+    conn.query(`DELETE FROM client WHERE id = ${id};`, (err, result) => {
         if(err) throw err
-        res.redirect('/')
+        res.redirect('/clients')
     })
 })
 
 //Contatos
 app.get('/contacts', (req, res) => {
-    conn.query("SELECT * FROM contact", (err, rows) => {
+    // TENTAR AGRUPAR POR CLIENTE
+    conn.query(`SELECT cli.name as cliName, con.id, con.name, con.phone FROM client AS cli 
+    JOIN contact AS con 
+    ON cli.id = con.id_client;`, (err, rows) => {
         if(err) throw err
         res.render('contacts', { contact: rows })
     })
@@ -94,6 +100,7 @@ app.get('/contacts', (req, res) => {
 
 // Insert
 app.post('/contacts', (req, res) => {
+
     conn.query("INSERT INTO contact VALUES (?, ?, ?, ?)",
     [ null, req.body.name, req.body.email, req.body.phone ])
 
@@ -105,14 +112,14 @@ app.get('/edit-contacts/:contactId', (req, res) => {
     const id = req.params.contactId
     conn.query(`SELECT * FROM contact WHERE ID = ${id};`, (err, result) => {
         if(err) throw err
-        res.render('edit', { client: result[0] })
+        res.render('edit-contacts', { contact: result[0] })
     })
 })
 
 app.post('/update-contacts', (req, res) => {
     conn.query(`
     UPDATE contact 
-    SET name="${req.body.name}", email="${req.body.email}", phone="${req.body.phone}"
+    SET name="${req.body.name}", phone="${req.body.phone}"
     WHERE id="${req.body.id}";
     `), (err, results) => {
         if(err) throw err
@@ -121,8 +128,8 @@ app.post('/update-contacts', (req, res) => {
 })
 
 // Delete
-app.get('/delete/:contactId', (req, res) => {
-    const id = req.params.clientId
+app.get('/delete-contacts/:contactId', (req, res) => {
+    const id = req.params.contactId
     conn.query(`DELETE FROM contact WHERE ID = ${id};`, (err, result) => {
         if(err) throw err
         res.redirect('/contacts')

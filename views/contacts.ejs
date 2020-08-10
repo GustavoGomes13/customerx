@@ -14,8 +14,6 @@
                 <fieldset>
                     <label for="name">Nome:</label>
                     <input type="text" name="name" placeholder="Informe o nome do cliente" required>
-                    <label for="email">E-mail:</llabel>
-                    <input type="email" name="email" placeholder="Informe o e-mail" required>
                     <label for="phone">Telefone:</label>
                     <input type="number" name="phone" placeholder="Informe o telefone" required>
 
@@ -25,33 +23,32 @@
             </form>
         </div>
 
-        
-        <div class="clients-list">
-            <table class="clients-table">
+        <h1>Lista de contatos</h1>
+    
+        <div class="contact-list">
+            <table class="contact-table">
                 <tr>
-                     <th>ID</th>
-                     <th>Nome</th>
-                     <th>Email</th>
-                      <th>Telefone</th>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
                     <th>Ação</th>
                 </tr>
 
-                
                 <% contact.forEach(function(contacts){ %>
+                    <th>Cliente: <%= contacts.cliName %></th>
                     <tr>
                         <td><%= contacts.id %></td>
                         <td><%= contacts.name %></td>
-                        <td><%= contacts.email %></td>
                         <td><%= contacts.phone %></td>
-                        <td><%= contacts.register_date %></td>
                         <td>
-                            <a href="edit/<%= contacts.id %>">Editar</a>
-                            <a href="delete/<%= contacts.id %>">Deletar</a>
+                            <a href="edit-contacts/<%= contacts.id %>">Editar</a>
+                            <a href="delete-contacts/<%= contacts.id %>">Deletar</a>
                         </td>
                     </tr>
-                <% }); %>
+                <% }); %>                       
             </table>
         </div>
+
     </div>
 </body>
 </html>

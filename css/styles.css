@@ -54,6 +54,15 @@ body {
 .form-register {
     display: flex;
     justify-content: center;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
+
+.form-register form {
+    width: 60%;
 }
 
 .form-register fieldset {
@@ -63,11 +72,18 @@ body {
 }
 
 .form-register input {
-    margin: 8px;
     border-radius: 50px;
-    padding: 5px;
+    padding: 5px 10px;
     border: none;
     outline: none;
+    width: 100%;
+    margin-bottom: 20px;
+
+}
+
+.form-register input:focust-within::after {
+    content: '';
+    border: 1px solid lightgrey;
 }
 
 /* buttons */
@@ -102,6 +118,12 @@ body {
 
 
 /* Tabela de resultados */
+.clients-list {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
 table {
     border: solid 1px black;
 }
