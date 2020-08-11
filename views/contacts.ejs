@@ -34,8 +34,10 @@
                     <th>Ação</th>
                 </tr>
 
-                <% contact.forEach(function(contacts){ %>
-                    <th>Cliente: <%= contacts.cliName %></th>
+                
+                <% client.forEach(function(clients) { %>
+                    <th>Cliente: <%= clients.name %></th>
+                    <% clients.contacts.forEach(function(contacts) { %>
                     <tr>
                         <td><%= contacts.id %></td>
                         <td><%= contacts.name %></td>
@@ -45,6 +47,7 @@
                             <a href="delete-contacts/<%= contacts.id %>">Deletar</a>
                         </td>
                     </tr>
+                    <% }); %>
                 <% }); %>                       
             </table>
         </div>

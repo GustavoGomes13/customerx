@@ -13,7 +13,7 @@ const conn = mysql.createConnection({
     database: 'customerx'
 })
 
-const db = conn.connect((error) => {
+conn.connect((error) => {
     if(error) {
         console.log('Problema na conexão com o banco ' + error)
     } else {
@@ -39,9 +39,9 @@ app.get('/', (req, res) => {
 
 //Clientes
 app.get('/clients', (req, res) => {
-    conn.query("SELECT * FROM client", (err, rows) => {
+    conn.query("SELECT id, name, email, phone, date_format(register_date, '%d/%m/%Y') as register_date FROM client;", (err, rows) => {
         if(err) throw err
-        res.render('clients', {client: rows} )
+        res.render('clients', {client: rows} )     
     })
 })
 
@@ -71,16 +71,17 @@ app.post('/update', (req, res) => {
     UPDATE client 
     SET name="${req.body.name}", email="${req.body.email}", phone="${req.body.phone}"
     WHERE id="${req.body.id}";
-    `), (err, results) => {
-        if(err) throw err
-        res.redirect('clients')
-    }
-    // Não redirecionando !!!VERIFICAR
+    `)
+    res.redirect('../clients')
 })
+    // Não redirecionando !!!VERIFICAR
 
 // Delete
 app.get('/delete/:clientId', (req, res) => {
     const id = req.params.clientId
+    conn.query(`SELECT * FROM contact WHERE id_client = ${id};`, (err, result) => {
+        if(result) throw 'Deu erro' // tentar criar modulo
+    })
     conn.query(`DELETE FROM client WHERE id = ${id};`, (err, result) => {
         if(err) throw err
         res.redirect('/clients')
@@ -90,12 +91,36 @@ app.get('/delete/:clientId', (req, res) => {
 //Contatos
 app.get('/contacts', (req, res) => {
     // TENTAR AGRUPAR POR CLIENTE
-    conn.query(`SELECT cli.name as cliName, con.id, con.name, con.phone FROM client AS cli 
-    JOIN contact AS con 
-    ON cli.id = con.id_client;`, (err, rows) => {
+    let clients = {
+        id: 0,
+        name: '',
+        contacts: []
+    }
+
+    conn.query(`SELECT name FROM client;`, (err, rows) => {
         if(err) throw err
-        res.render('contacts', { contact: rows })
+        clients = rows
+        
     })
+    console.log(clients)
+
+    /*
+    clients.forEach(function(id, name, contacts) {
+        conn.query(`SELECT * FROM contact WHERE id_client = ${id}`, (err, rows) => {
+            if(err) throw err
+            contacts = rows
+        })
+    })
+    */
+
+    res.render('contacts', { client: clients })
+
+    
+    /*
+    SELECT cli.name as cliName, con.id, con.name, con.phone FROM client AS cli 
+    JOIN contact AS con 
+    ON cli.id = con.id_client
+    */
 })
 
 // Insert
