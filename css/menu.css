@@ -1,0 +1,36 @@
+.side-nav {
+    float: left;
+    height: 100vh;
+    width: 200px;
+    background: #4c2882;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    overflow-x: hidden;
+}
+
+.side-nav ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 25px;
+}
+
+.side-nav ul li {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    padding: 15px;
+    background: #3ED62AF2;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.side-nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.side-nav ul li:hover {
+    background: #28aa17f2;
+}

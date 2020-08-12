@@ -37,8 +37,9 @@ app.get('/', (req, res) => {
     res.render('index')
 })
 
-//Clientes
+/***********CLIENTES***********/
 app.get('/clients', (req, res) => {
+    //select utilizado para já trazer formatado a data para exibição
     conn.query("SELECT id, name, email, phone, date_format(register_date, '%d/%m/%Y') as register_date FROM client;", (err, rows) => {
         if(err) throw err
         res.render('clients', {client: rows} )     
@@ -48,21 +49,21 @@ app.get('/clients', (req, res) => {
 // Insert
 app.post('/clients', (req, res) => {
 
+    //Tratando data para inserir apenas YYYY-MM-DD
     let date = new Date().toISOString().slice(0, 10)
 
     conn.query("INSERT INTO client VALUES (?, ?, ?, ?, ?)",
     [ null, req.body.name, req.body.email, req.body.phone, date ])
-    console.log(getDate)
 
     res.redirect('/clients')
 })
 
 // Update
-app.get('/edit/:clientId', (req, res) => {
+app.get('/edit-clients/:clientId', (req, res) => {
     const id = req.params.clientId
     conn.query(`SELECT * FROM client WHERE ID = ${id};`, (err, result) => {
         if(err) throw err
-        res.render('edit', { client: result[0] })
+        res.render('edit-clients', { client: result[0] })
     })
 })
 
@@ -72,64 +73,58 @@ app.post('/update', (req, res) => {
     SET name="${req.body.name}", email="${req.body.email}", phone="${req.body.phone}"
     WHERE id="${req.body.id}";
     `)
-    res.redirect('../clients')
+    res.redirect('/clients')
 })
-    // Não redirecionando !!!VERIFICAR
 
 // Delete
 app.get('/delete/:clientId', (req, res) => {
     const id = req.params.clientId
+    /*
     conn.query(`SELECT * FROM contact WHERE id_client = ${id};`, (err, result) => {
-        if(result) throw 'Deu erro' // tentar criar modulo
-    })
-    conn.query(`DELETE FROM client WHERE id = ${id};`, (err, result) => {
-        if(err) throw err
-        res.redirect('/clients')
-    })
-})
-
-//Contatos
-app.get('/contacts', (req, res) => {
-    // TENTAR AGRUPAR POR CLIENTE
-    let clients = {
-        id: 0,
-        name: '',
-        contacts: []
-    }
-
-    conn.query(`SELECT name FROM client;`, (err, rows) => {
-        if(err) throw err
-        clients = rows
-        
-    })
-    console.log(clients)
-
-    /*
-    clients.forEach(function(id, name, contacts) {
-        conn.query(`SELECT * FROM contact WHERE id_client = ${id}`, (err, rows) => {
-            if(err) throw err
-            contacts = rows
-        })
+        if(result){
+            res.render('delete-error')
+        }
     })
     */
-
-    res.render('contacts', { client: clients })
-
     
-    /*
-    SELECT cli.name as cliName, con.id, con.name, con.phone FROM client AS cli 
-    JOIN contact AS con 
-    ON cli.id = con.id_client
-    */
+    try {
+        conn.query(`DELETE FROM client WHERE id = ${id};`, (result) => {
+            //if(err) throw err
+            res.redirect('/clients')
+        })
+    } catch (error) {
+        
+    }
+    
+    
 })
 
-// Insert
-app.post('/contacts', (req, res) => {
+/**************CONTATOS************/
+// Adicionando contatos
+// pegando a id do cliente que recebera o contato
+app.get('/add-contacts/:idClient', (req, res) => {
+    const id = req.params.idClient
+    conn.query(`SELECT * FROM client WHERE id = ${id};`, (err, result) => {
+        if(err) throw err
+        res.render('add-contacts', { client: result[0] })
+    })
+})
 
-    conn.query("INSERT INTO contact VALUES (?, ?, ?, ?)",
-    [ null, req.body.name, req.body.email, req.body.phone ])
+app.post('/insert-contact', (req, res) => {
+    conn.query(`INSERT INTO contact VALUES (?, ?, ?, ?);`,
+    [ null, req.body.name, req.body.phone, req.body.clientId ])
+    res.redirect('/contacts') //ALTERAR PARA LISTA DE CONTATOS
+})
 
-    res.redirect('/contacts')
+// Lista de contatos
+app.get('/contacts', (req, res) => {
+    conn.query(`SELECT cli.name as cliName, con.id, con.name, con.phone FROM client AS cli 
+        JOIN contact AS con 
+        ON cli.id = con.id_client
+        ORDER BY con.id_client, con.id;`, (err, rows) => {
+        if(err) throw err
+        res.render('contacts', { contact: rows })
+    })
 })
 
 // Update
@@ -146,10 +141,9 @@ app.post('/update-contacts', (req, res) => {
     UPDATE contact 
     SET name="${req.body.name}", phone="${req.body.phone}"
     WHERE id="${req.body.id}";
-    `), (err, results) => {
-        if(err) throw err
-        res.redirect('/contacts')
-    }
+    `)
+    res.redirect('/contacts')
+
 })
 
 // Delete

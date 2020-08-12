@@ -1,0 +1,50 @@
+/* Tabela de resultados */
+.clients-list {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+table {
+    border: solid 1px grey;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+table td {
+    margin: 30px;
+    padding: 5px;
+}
+
+table td a {
+    padding: 5px;
+    margin: 3px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+table td .add-contato {
+    background: #3ED62AF2;
+}
+
+table td .add-contato:hover {
+    background: #28aa17f2;
+}
+
+table td .edit {
+    background: #352ad6f2;
+}
+
+table td .edit:hover {
+    background: #2117acf2;
+}
+
+table td .delete {
+    background: #d62a38f2;
+}
+
+table td .delete:hover {
+    background: #a71b27f2;
+}

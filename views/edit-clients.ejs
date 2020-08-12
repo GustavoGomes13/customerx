@@ -1,27 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/menu.css">
-    <title>Editando contatos</title>
+    <title>Editando clientes</title>
 </head>
 <body>
 
-    <%- include('partials/menu') %>
+    <div class="side-nav">
+        <ul>
+            <li><a href="/clients">Clientes</a></li>
+            <li><a href="/contacts">Contatos</a></li>
+        </ul>
+    </div>
 
     <div class="content">
         <div class="form-register">
-            <form action="/update-contacts" method="POST">
+            <form action="/update" method="POST">
                 <fieldset>
-                    <input type="hidden" value="<%= contact.id %>" name="id">
+                    <input type="hidden" value="<%= client.id %>" name="id">
                     <label for="name">Nome:</label>
-                    <input type="text" name="name" placeholder="Informe o nome do cliente" value="<%= contact.name %>" required>
+                    <input type="text" name="name" placeholder="Informe o nome do cliente" value="<%= client.name %>" required>
+                    <label for="email">E-mail:</llabel>
+                    <input type="text" name="email" placeholder="Informe o e-mail" value="<%= client.email%>" required>
                     <label for="phone">Telefone:</label>
-                    <input type="number" name="phone" placeholder="Informe o telefone" value="<%= contact.phone %>" required>
-                    
+                    <input type="number" name="phone" placeholder="Informe o telefone" value="<%= client.phone %>" required>
+    
                     <div class="buttons">
                         <button type="submit" id="btnSave">Salvar</button>
                         <button type="reset" id="btnReset">Cancelar</button>

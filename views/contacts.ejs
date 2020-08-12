@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
-    <title>Contacts</title>
+    <title>Contatos</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="/css/contact.css">
 </head>
 <body>
+
+    <%- include('partials/menu') %>
+
     <div class="content">
         <div class="form-register">
             <form method="POST">
@@ -17,8 +22,10 @@
                     <label for="phone">Telefone:</label>
                     <input type="number" name="phone" placeholder="Informe o telefone" required>
 
-                    <button type="submit" id="btnSave">Salvar</button>
-                    <button type="reset" id="btnReset">Cancelar</button>
+                    <div class="buttons">
+                        <button type="submit" id="btnSave">Salvar</button>
+                        <button type="reset" id="btnReset">Cancelar</button>
+                    </div>
                 </fieldset>
             </form>
         </div>
@@ -31,27 +38,25 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Telefone</th>
+                    <th>Cliente</th>
                     <th>Ação</th>
                 </tr>
-
-                
-                <% client.forEach(function(clients) { %>
-                    <th>Cliente: <%= clients.name %></th>
-                    <% clients.contacts.forEach(function(contacts) { %>
-                    <tr>
-                        <td><%= contacts.id %></td>
-                        <td><%= contacts.name %></td>
-                        <td><%= contacts.phone %></td>
-                        <td>
-                            <a href="edit-contacts/<%= contacts.id %>">Editar</a>
-                            <a href="delete-contacts/<%= contacts.id %>">Deletar</a>
-                        </td>
-                    </tr>
+             
+                    <% contact.forEach(function(contacts){ %>
+                        <tr>
+                            <td><%= contacts.id %></td>
+                            <td><%= contacts.name %></td>
+                            <td><%= contacts.phone %></td>
+                            <td class="client-name"><%= contacts.cliName %></td>
+                            <td>
+                                <a href="edit-contacts/<%= contacts.id %>" class="edit">Editar</a>
+                                <a href="delete-contacts/<%= contacts.id %>" class="delete">Deletar</a>
+                            </td>
+                        </tr>
                     <% }); %>
-                <% }); %>                       
-            </table>
+                </table>
+            </div>
         </div>
-
     </div>
 </body>
 </html>

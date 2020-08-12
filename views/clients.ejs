@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/client.css">
     <title>Clientes</title>
 </head>
 <body>
@@ -46,7 +48,7 @@
                     <th>Ação</th>
                 </tr>
 
-                    
+                
                 <% client.forEach(function(clients){ %>
                     <tr>
                         <td><%= clients.id %></td>
@@ -55,8 +57,9 @@
                         <td><%= clients.phone %></td>
                         <td><%= clients.register_date %></td>
                         <td>
-                            <a href="edit/<%= clients.id %>">Editar</a>
-                            <a href="delete/<%= clients.id %>">Deletar</a>
+                            <a href="add-contacts/<%= clients.id %>" class="add-contato">Add Contato</a>
+                            <a href="edit-clients/<%= clients.id %>" class="edit">Editar</a>
+                            <a href="delete/<%= clients.id %>" class="delete">Deletar</a>
                         </td>
                     </tr>
                 <% }); %>
