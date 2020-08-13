@@ -3,6 +3,6 @@ CREATE TABLE contact (
     name varchar(60) not null,
     email varchar(60) not null,
     phone varchar(11) not null,
-    id_client int,
+    id_client int not null,
     foreign key (id_client) references client(id)
 );
