@@ -25,6 +25,8 @@
                     <input type="hidden" value="<%= client.id %>" name="clientId">
                     <label for="name">Nome:</label>
                     <input type="text" name="name" placeholder="Informe o nome do cliente" required>
+                    <label for="email">E-mail:</label>
+                    <input type="email" name="email" placeholder="Informe o e-mail" required>
                     <label for="phone">Telefone:</label>
                     <input type="number" onkeydown="return event.keyCode !== 69" name="phone" placeholder="Informe o telefone" required>
 
@@ -35,5 +37,6 @@
                 </fieldset>
             </form>
         </div>
+    </div>
 </body>
 </html>

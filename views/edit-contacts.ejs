@@ -19,6 +19,8 @@
                     <input type="hidden" value="<%= contact.id %>" name="id">
                     <label for="name">Nome:</label>
                     <input type="text" name="name" placeholder="Informe o nome do cliente" value="<%= contact.name %>" required>
+                    <label for="email">E-mail:</label>
+                    <input type="email" name="email" placeholder="Informe o e-mail" value="<%= contact.email %>" required>
                     <label for="phone">Telefone:</label>
                     <input type="number" onkeydown="return event.keyCode !== 69" name="phone" name="phone" placeholder="Informe o telefone" value="<%= contact.phone %>" required>
                     

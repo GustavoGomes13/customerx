@@ -101,14 +101,14 @@ app.get('/add-contacts/:idClient', (req, res) => {
 })
 
 app.post('/insert-contact', (req, res) => {
-    conn.query(`INSERT INTO contact VALUES (?, ?, ?, ?);`,
-    [ null, req.body.name, req.body.phone, req.body.clientId ])
+    conn.query(`INSERT INTO contact VALUES (?, ?, ?, ?, ?);`,
+    [ null, req.body.name, req.body.email, req.body.phone, req.body.clientId ])
     res.redirect('/contacts')
 })
 
 // Lista de contatos
 app.get('/contacts', (req, res) => {
-    conn.query(`SELECT cli.name as cliName, con.id, con.name, con.phone FROM client AS cli 
+    conn.query(`SELECT cli.name as cliName, con.id, con.name, con.email, con.phone FROM client AS cli 
         JOIN contact AS con 
         ON cli.id = con.id_client
         ORDER BY con.id_client, con.id;`, (err, rows) => {
@@ -129,7 +129,7 @@ app.get('/edit-contacts/:contactId', (req, res) => {
 app.post('/update-contacts', (req, res) => {
     conn.query(`
     UPDATE contact 
-    SET name="${req.body.name}", phone="${req.body.phone}"
+    SET name="${req.body.name}", email="${req.body.email}", phone="${req.body.phone}"
     WHERE id="${req.body.id}";
     `)
     res.redirect('/contacts')
