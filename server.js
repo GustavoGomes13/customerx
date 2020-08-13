@@ -1,4 +1,3 @@
-const path = require('path')
 const express = require('express')
 const ejs = require('ejs')
 const bodyParser = require('body-parser')
@@ -29,8 +28,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //Adicionando diretorio dos arquivos
 app.use('/css', express.static('css'))
 app.use('/scripts', express.static('scripts'))
-//app.set('views', path.join(__dirname, 'views'))
-//app.set('public', path.join(__dirname, 'public'))
 
 //criando rotas para as paginas
 app.get('/', (req, res) => {
@@ -79,24 +76,17 @@ app.post('/update', (req, res) => {
 // Delete
 app.get('/delete/:clientId', (req, res) => {
     const id = req.params.clientId
-    /*
-    conn.query(`SELECT * FROM contact WHERE id_client = ${id};`, (err, result) => {
-        if(result){
-            res.render('delete-error')
-        }
-    })
-    */
     
+    /* Deixei com try catch pra não deixar sistema quebrar ao tentar deletar cliente com vinculo de contato.
+    Não consegui encontrar outra forma para que fosse exibido mensagem ou redirecionado para uma página de erro,
+    sem que parasse o servidor devido ao erro de sql. */
     try {
         conn.query(`DELETE FROM client WHERE id = ${id};`, (result) => {
-            //if(err) throw err
             res.redirect('/clients')
         })
     } catch (error) {
         
     }
-    
-    
 })
 
 /**************CONTATOS************/
@@ -113,7 +103,7 @@ app.get('/add-contacts/:idClient', (req, res) => {
 app.post('/insert-contact', (req, res) => {
     conn.query(`INSERT INTO contact VALUES (?, ?, ?, ?);`,
     [ null, req.body.name, req.body.phone, req.body.clientId ])
-    res.redirect('/contacts') //ALTERAR PARA LISTA DE CONTATOS
+    res.redirect('/contacts')
 })
 
 // Lista de contatos

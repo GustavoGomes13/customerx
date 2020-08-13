@@ -12,34 +12,16 @@
 <body>
 
     <%- include('partials/menu') %>
-
-    <div class="content">
-        <div class="form-register">
-            <form method="POST">
-                <fieldset>
-                    <label for="name">Nome:</label>
-                    <input type="text" name="name" placeholder="Informe o nome do cliente" required>
-                    <label for="phone">Telefone:</label>
-                    <input type="number" name="phone" placeholder="Informe o telefone" required>
-
-                    <div class="buttons">
-                        <button type="submit" id="btnSave">Salvar</button>
-                        <button type="reset" id="btnReset">Cancelar</button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-
-        <h1>Lista de contatos</h1>
-    
-        <div class="contact-list">
+    <div class="content">        
+        <div class="contacts-list">
+            <h1>Lista de contatos</h1>
             <table class="contact-table">
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Telefone</th>
-                    <th>Cliente</th>
-                    <th>Ação</th>
+                    <th class="client-name">Cliente</th>
+                    <th>Ações</th>
                 </tr>
              
                     <% contact.forEach(function(contacts){ %>

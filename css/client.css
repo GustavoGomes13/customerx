@@ -1,14 +1,21 @@
 /* Tabela de resultados */
 .clients-list {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
     margin-bottom: 50px;
 }
 
 table {
+    margin-top: 30px;
     border: solid 1px grey;
     border-radius: 8px;
     padding: 10px;
+}
+
+table th {
+    padding: 0 10px;
 }
 
 table td {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,11 +20,11 @@
                     <label for="name">Nome:</label>
                     <input type="text" name="name" placeholder="Informe o nome do cliente" value="<%= contact.name %>" required>
                     <label for="phone">Telefone:</label>
-                    <input type="number" name="phone" placeholder="Informe o telefone" value="<%= contact.phone %>" required>
+                    <input type="number" onkeydown="return event.keyCode !== 69" name="phone" name="phone" placeholder="Informe o telefone" value="<%= contact.phone %>" required>
                     
                     <div class="buttons">
                         <button type="submit" id="btnSave">Salvar</button>
-                        <button type="reset" id="btnReset">Cancelar</button>
+                        <a href="/contacts">Cancelar</a>
                     </div>
                 </fieldset>
             </form>

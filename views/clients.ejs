@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@
                     <label for="email">E-mail:</llabel>
                     <input type="email" name="email" placeholder="Informe o e-mail" required><br>
                     <label for="phone">Telefone:</label>
-                    <input type="number" name="phone" placeholder="Informe o telefone" required><br>
+                    <input type="number" onkeydown="return event.keyCode !== 69" name="phone" name="phone" placeholder="Informe o telefone" required><br>
 
                     <div class="buttons">
                         <button type="submit" id="btnSave">Salvar</button>
@@ -38,6 +38,7 @@
         </div>
 
         <div class="clients-list">
+            <h1>Lista de clientes</h1>
             <table class="clients-table">
                 <tr>
                     <th>ID</th>
@@ -45,7 +46,7 @@
                     <th>Email</th>
                     <th>Telefone</th>
                     <th>Data do Cadastro</th>
-                    <th>Ação</th>
+                    <th>Ações</th>
                 </tr>
 
                 

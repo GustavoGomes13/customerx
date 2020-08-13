@@ -21,7 +21,6 @@ body {
     padding-bottom: 25px;
     margin-left: 20px;
     margin-right: 20px;
-    margin-bottom: 50px;
 }
 
 .form-register form {
@@ -41,7 +40,6 @@ body {
     outline: none;
     width: 100%;
     margin-bottom: 20px;
-
 }
 
 /* buttons */
@@ -71,5 +69,21 @@ body {
 }
 
 .form-register button+button:hover {
+    background: #a71b27f2;
+}
+
+/* PARA TELAS DE EDIÇÃO */
+.form-register a {
+    color: white;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    background: #d62a38f2;
+    margin-left: 5px;
+    transition: 0.2s;
+}
+
+.form-register a:hover {
     background: #a71b27f2;
 }
